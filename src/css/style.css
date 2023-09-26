@@ -115,6 +115,7 @@ button {
 /* Add superscript styles */
 
 .cart_superscript {
+  display: none;
   position: absolute;
   top: 6px;
   left: 8px;

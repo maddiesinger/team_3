@@ -6,6 +6,7 @@ const superScript = document.querySelector(".cart_superscript");
 
 const getCartCount = () => {
   if (storedData) {
+    superScript.style.display = "block"
     if (Array.isArray(storedData)) {
       superScript.innerHTML = storedData.length;
     } else {
