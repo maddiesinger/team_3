@@ -1,12 +1,11 @@
 import { getLocalStorage } from "./utils.mjs";
 
-var storedData = getLocalStorage("so-cart");
+const addSuperScript = () => {
+  var storedData = getLocalStorage("so-cart");
+  const superScript = document.querySelector(".cart_superscript");
 
-const superScript = document.querySelector(".cart_superscript");
-
-const getCartCount = () => {
   if (storedData) {
-    superScript.style.display = "block"
+    superScript.style.display = "block";
     if (Array.isArray(storedData)) {
       superScript.innerHTML = storedData.length;
     } else {
@@ -15,4 +14,6 @@ const getCartCount = () => {
   }
 };
 
-getCartCount();
+addSuperScript();
+
+export { addSuperScript };
