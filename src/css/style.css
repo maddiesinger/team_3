@@ -103,16 +103,6 @@ button {
   text-align: center;
 }
 
-/* Animating Backpack when item is added*/
-.animated{
-  transform: scale(1.2); /* Backpack animation */
-  transition: transform 0.5s ease; /* Backpack transition */
-}
-/* Return backpack to normal size */
-.return-to-normal {
-  transform: scale(1);
-  transition: transform 0.5s ease; 
-}
 .cart svg {
   width: 25px;
 }
