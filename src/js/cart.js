@@ -5,16 +5,34 @@ import { showNotification } from "./productDetails.mjs";
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || []; // Default to an empty array if null
 
-  if (Array.isArray(cartItems)) { // Check if cartItems is an array
+  if (Array.isArray(cartItems)) {
+    // Check if cartItems is an array
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
     setupDeleteButtons(); // listens for the x delete button to be hit to trigger deleting the item from the cart
+    calculateCartTotal(cartItems);
   } else {
     // eslint-disable-next-line no-console
     console.log("Expected cartItems to be an array, but got:", cartItems);
   }
 }
 
+function calculateCartTotal(cartItems) {
+
+  if (Array.isArray(cartItems) && cartItems.length != 0) {
+
+    let el = document.querySelector(".cart-footer");
+    let cartTotal = 0;
+    // Check if cartItems is an array
+    cartItems.map((item) => (cartTotal += item.FinalPrice));
+    el.innerHTML = `Total: $${cartTotal}`;
+    if (el.classList.contains("hide")) {
+      el.classList.remove("hide");
+      el.classList.add("visible");
+    }
+    
+  }
+}
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">

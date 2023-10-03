@@ -112,6 +112,13 @@ button {
 
 /* End cart icon styles */
 
+.hide {
+  display: none;
+}
+
+.visible{
+  display: block;
+}
 /* Add superscript styles */
 
 .cart_superscript {
