@@ -24,7 +24,8 @@ function productDetailsTemplate(product) {
     src="${product.Image}"
     alt="${product.Name}"
   />
-  <p class="product-card__price">$${product.FinalPrice}</p>
+  <p class="product-card__price">$${product.SuggestedRetailPrice}</p>
+  <p class="product-card__final-price"><b>$${product.FinalPrice}</b></p>
   <p class="product__color">${product.Colors[0].ColorName}</p>
   <p class="product__description">
   ${product.DescriptionHtmlSimple}
