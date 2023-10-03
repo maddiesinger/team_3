@@ -14,6 +14,7 @@ export default async function productDetails(productId, selector) {
   document.getElementById("addToCart").addEventListener("click", addToCartHandler);
 }
 
+// eslint-disable-next-line no-shadow
 function productDetailsTemplate(product) {
   return `
   <h3>${product.Brand.Name}</h3>
@@ -34,7 +35,7 @@ function productDetailsTemplate(product) {
 }
 
 
-function showNotification(message) {
+export function showNotification(message) {
     const notification = document.createElement("div");
     notification.innerText = message;
     notification.style.position = "fixed";
@@ -59,6 +60,7 @@ function showNotification(message) {
   
     // this is a check to indeed make sure the items are not objects.
     if (!Array.isArray(cartItems)) {
+      // eslint-disable-next-line no-console
       console.log("Expected cartItems to be an array, but got:", cartItems);
       return;
     }
