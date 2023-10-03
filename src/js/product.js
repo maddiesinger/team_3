@@ -1,5 +1,5 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { findProductById } from "./productData.mjs";
+import { getParam } from "./utils.mjs";
+import productDetails from "./productDetails.mjs";
 
 // a message meant pop up if the add buttons work.
 function showNotification(message) {
@@ -68,3 +68,5 @@ document.getElementById("addToCart").addEventListener("click", function() {
 
 });
 
+const productId = getParam("product");
+productDetails(productId, ".product-detail");
