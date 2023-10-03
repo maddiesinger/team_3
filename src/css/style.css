@@ -1,12 +1,14 @@
 :root {
   --font-body: Arial, Helvetica, sans-serif;
   --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  
   /* colors */
   --primary-color: #f0a868;
   --secondary-color: #525b0f;
   --tertiary-color: #a4b8c4;
   --light-grey: #d0d0d0;
   --dark-grey: #303030;
+  --sale-red: #ff0000;
 
   /* sizes */
   --font-base: 18px;
@@ -166,6 +168,16 @@ button {
 .product-card h3,
 .product-card p {
   margin: 0.5em 0;
+}
+
+.product-card__price {
+  color: var(--light-grey);
+  text-decoration:line-through;
+}
+
+.product-card__final-price {
+  color: var(--sale-red);
+  
 }
 
 .card__brand {
