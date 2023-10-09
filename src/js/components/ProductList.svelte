@@ -7,7 +7,7 @@
     const excludeTentIds = ["989CG", "880RT"];
 
     // Function to filter tents
-    const filterTents = (products) => {
+    const filterTents = (products) => { 
         return products.filter(product => !excludeTentIds.includes(product.Id));
     };
 </script>
