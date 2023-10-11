@@ -12,6 +12,18 @@ export default async function productDetails(productId, selector) {
   el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
   // once the HTML is rendered we can add a listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+  // Add animation when button is clicked
+  document.getElementById("addToCart").addEventListener("click", function() {
+   // Toggle the 'animated' class on the backpack
+       const backpack = document.getElementById("backpackIcon");
+       backpack.classList.toggle("animated");
+      
+       // Return to the normal size after a time delay
+       setTimeout(function() {
+        backpack.classList.toggle("return-to-normal");
+      }, 500);
+    
+     });
 }
 
 // eslint-disable-next-line no-shadow
