@@ -20,6 +20,17 @@ function checkProduct(product, selector){
     const el = document.querySelector(selector);
     el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
     document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+    document.getElementById("addToCart").addEventListener("click", function() {
+      // Toggle the 'animated' class on the backpack
+          const backpack = document.getElementById("backpackIcon");
+          backpack.classList.toggle("animated");
+         
+          // Return to the normal size after a time delay
+          setTimeout(function() {
+           backpack.classList.toggle("return-to-normal");
+         }, 500);
+       
+        });
   }
   catch(error){
     const el = document.querySelector(selector);
