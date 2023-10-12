@@ -1,6 +1,7 @@
 import { getLocalStorage } from "./utils.mjs";
-import { addSuperScript } from "./header";
 import { showNotification } from "./productDetails.mjs";
+import { renderHeaderFooter } from "./utils.mjs";
+import { cartCount } from "./stores.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || []; // Default to an empty array if null
@@ -69,8 +70,6 @@ function setupDeleteButtons() {
       deleteItemFromCart(itemId);
       showNotification(`Item: ${itemName} has been deleted from your cart`);
       renderCartContents();
-      // updates the cart superscript icon value after items have been removed
-      addSuperScript();
     });
   });
 }
@@ -97,3 +96,4 @@ function deleteItemFromCart(itemId) {
 }
 
 renderCartContents();
+renderHeaderFooter();

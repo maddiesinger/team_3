@@ -1,6 +1,7 @@
 import { getLocalStorage, setLocalStorage} from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
-import { addSuperScript } from "./header";
+import { cartCount } from "./stores.mjs";
+
 
 let product = {};
 
@@ -20,17 +21,7 @@ function checkProduct(product, selector){
     const el = document.querySelector(selector);
     el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
     document.getElementById("addToCart").addEventListener("click", addToCartHandler);
-    document.getElementById("addToCart").addEventListener("click", function() {
-      // Toggle the 'animated' class on the backpack
-          const backpack = document.getElementById("backpackIcon");
-          backpack.classList.toggle("animated");
-         
-          // Return to the normal size after a time delay
-          setTimeout(function() {
-           backpack.classList.toggle("return-to-normal");
-         }, 500);
-       
-        });
+  
   }
   catch(error){
     const el = document.querySelector(selector);
@@ -108,12 +99,21 @@ export function showNotification(message) {
     }
     showNotification("Item has been added to the cart!");  // Save the updated cart items back to local storage.
     setLocalStorage("so-cart", cartItems);
-    addSuperScript()
+    // cartCount.set(cartItems.length);
+    cartCount.set(existingProduct.quantity + cartItems.length);
   }
   
 // Add to cart button event handler.
 async function addToCartHandler(e) {
-    const productItem = await findProductById(e.target.dataset.id);
-    addProductToCart(productItem)
-  }
+  const productItem = await findProductById(e.target.dataset.id);
+  addProductToCart(productItem)
+  // Toggle the 'animated' class on the backpack
+  const backpack = document.getElementById("backpackIcon");
+  backpack.classList.toggle("animated");
+  
+  // Return to the normal size after a time delay
+  setTimeout(function() {
+    backpack.classList.toggle("return-to-normal");
+  }, 500);
+}
   
