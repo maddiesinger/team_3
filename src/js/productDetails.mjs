@@ -8,10 +8,29 @@ export default async function productDetails(productId, selector) {
   // get the details for the current product. findProductById will return a promise! use await or .then() to process it
   product = await findProductById(productId);
   // once we have the product details we can render out the HTML
-  const el = document.querySelector(selector);
-  el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
+  checkProduct(product, selector)
+  
   // once the HTML is rendered we can add a listener to Add to Cart button
-  document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+  
+}
+
+// error handler 
+function checkProduct(product, selector){
+  try{
+    const el = document.querySelector(selector);
+    el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
+    document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+  }
+  catch(error){
+    const el = document.querySelector(selector);
+    console.log(error.message)
+    el.insertAdjacentHTML("afterBegin", 
+    `
+    <h1>There are no products here.</h1>
+    <p>Check out more products <a href="../index.html">here</a>.</p>
+    `
+    )
+  }
 }
 
 // eslint-disable-next-line no-shadow
