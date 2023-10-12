@@ -74,7 +74,7 @@ export function showNotification(message) {
   }
 
 
-  function addProductToCart() {
+  function addProductToCart(productItem) {
     // Get current cart items or default to an empty array if null.
     const cartItems = getLocalStorage("so-cart") || [];
   
@@ -86,14 +86,14 @@ export function showNotification(message) {
     }
   
     // Check if the product is already in the cart.
-    const existingProduct = cartItems.find(item => item.Id === product.Id);
+    let existingProduct = cartItems.find(item => item.Id === productItem.Id)
   
     if (existingProduct) {
-      // If the product is already in the cart, the quantity will be increased, will be useful in the future.
       existingProduct.quantity += 1;
     } else {
-      // If the product is not in the cart, add it to the array.
-      cartItems.push(product);
+      // If the product is not in the cart, assign an initial quantity and add it.
+      productItem.quantity = 1;  // Ensure the product has a quantity property set.
+      cartItems.push(productItem);
     }
     showNotification("Item has been added to the cart!");  // Save the updated cart items back to local storage.
     setLocalStorage("so-cart", cartItems);

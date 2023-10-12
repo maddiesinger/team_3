@@ -7,12 +7,14 @@ const addSuperScript = () => {
   if (storedData) {
     superScript.style.display = "block";
     if (Array.isArray(storedData)) {
-      superScript.innerHTML = storedData.length;
+      const totalQuantity = storedData.reduce((total, product) => total + product.quantity, 0);
+      superScript.innerHTML = totalQuantity;
     } else {
       superScript.innerHTML = `${1}`;
     }
   }
 };
+
 
 addSuperScript();
 

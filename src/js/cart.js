@@ -17,18 +17,26 @@ function renderCartContents() {
 }
 
 function calculateCartTotal(cartItems) {
+  let el = document.querySelector(".cart-footer");
+  
   if (Array.isArray(cartItems) && cartItems.length != 0) {
-    let el = document.querySelector(".cart-footer");
     let cartTotal = 0;
-    // Check if cartItems is an array
-    cartItems.map((item) => (cartTotal += item.FinalPrice));
+    cartItems.map((item) => (cartTotal += item.FinalPrice * item.quantity));  // updated to make sure it multiplies each item
     el.innerHTML = `Total: $${cartTotal}`;
     if (el.classList.contains("hide")) {
       el.classList.remove("hide");
       el.classList.add("visible");
     }
+  } else {
+    if (el.classList.contains("visible")) {
+      el.classList.remove("visible");
+      el.classList.add("hide");
+    }
+    el.innerHTML = "";
   }
 }
+
+
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -43,7 +51,7 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">quantity: ${item.quantity}</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
@@ -67,11 +75,24 @@ function setupDeleteButtons() {
   });
 }
 
-// Function to update the local storage and delete the item IDs
 function deleteItemFromCart(itemId) {
   // This filters out the item with the given ID, deleting it from the cart
   let cartItems = getLocalStorage("so-cart") || [];
-  cartItems = cartItems.filter((item) => item.Id !== itemId);
+
+  // Find the item that needs to be updated
+  const itemIndex = cartItems.findIndex(item => item.Id === itemId);
+
+  if(itemIndex > -1) {
+    // Reduce the quantity by 1
+    cartItems[itemIndex].quantity -= 1;
+
+    // Check if the quantity is 0 or less and remove it if thats the case
+    if(cartItems[itemIndex].quantity <= 0) {
+      cartItems.splice(itemIndex, 1);
+    }
+  }
+
+  // Make sure to udate the local storage
   localStorage.setItem("so-cart", JSON.stringify(cartItems));
 }
 
