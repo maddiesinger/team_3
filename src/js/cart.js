@@ -91,8 +91,12 @@ function deleteItemFromCart(itemId) {
     }
   }
 
-  // Make sure to udate the local storage
+  // Make sure to update the local storage
   localStorage.setItem("so-cart", JSON.stringify(cartItems));
+
+  // Update the cart count
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  cartCount.set(totalQuantity);
 }
 
 renderCartContents();
