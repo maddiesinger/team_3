@@ -2,7 +2,7 @@
     import { getData } from "../productData.mjs";
     export let category;
     let promise = getData(category);
-
+    
     // IDs of tents to filter out
     const excludeTentIds = ["989CG", "880RT"];
 
