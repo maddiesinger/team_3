@@ -292,6 +292,8 @@ footer {
   padding: 7px;
 }
 
+/*newsletter */
+
 .newsletter {
   background-color: var(--primary-color);
   color: white;
