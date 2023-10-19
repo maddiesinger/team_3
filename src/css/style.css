@@ -116,6 +116,30 @@ button {
   transition: transform 0.5s ease; 
 }
 
+/*Banner On First Time Visit */
+.first-banner{
+  text-align: center;
+  background-color: var(--sale-red);
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.first-banner p {
+  color: white;
+  text-align: left;
+}
+
+#legalese{
+  font-size: 0.75em;
+}
+
+/*Banner Beyond First Time Visit */
+.banner{
+  display: none;
+}
+
 .cart svg {
   width: 25px;
 }

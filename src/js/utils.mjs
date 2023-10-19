@@ -55,3 +55,18 @@ export function renderHeaderFooter(){
     target: document.querySelector("#main-footer"),
   });
 }
+
+export function displayBanner(){
+  let visited = false;
+  let banner = document.querySelector(".first-banner");
+  if(localStorage.getItem("was-visited")){
+    banner.classList.remove("first-banner");
+    banner.classList.add("banner");
+    return;
+  }
+  else{
+    visited = true;
+    localStorage.setItem("was-visited", 1);
+  }
+  
+}
