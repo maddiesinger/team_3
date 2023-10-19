@@ -23,8 +23,8 @@
                     <img src={product.Image} alt="Image of {product.Name}" />
                     <h3 class="card__brand">{product.Brand.Name}</h3>
                     <h2 class="card__name">{product.NameWithoutBrand}</h2>
-                    <p class="product-card__price">{product.ListPrice}</p>
-                    <p class="product-card__final-price"><b>{product.FinalPrice}</b></p>
+                    <p class="product-card__price">${product.SuggestedRetailPrice}</p>
+                    <p class="product-card__final-price"><b>${product.FinalPrice}</b></p>
                 </a>
             </li>
         {/each}
