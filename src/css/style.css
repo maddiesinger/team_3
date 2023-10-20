@@ -339,7 +339,22 @@ footer {
   background-color: white;
 }
 
+.product_images{
+  display: flex;
+  justify-content: center;
 
+}
+.product_images section {
+  padding: 15px;
+  width: 175px;
+}
 
+.product_images h3 {
+  font-weight: 550;
+  text-align: center;
+}
 
-
+.product_images a {
+  text-decoration: none;
+  color: black;
+}
