@@ -339,12 +339,16 @@ footer {
   background-color: white;
 }
 
-.product_images{
+.product_images {
   display: flex;
   justify-content: center;
-
 }
+
 .product_images section {
+  display: flex; /* Make each section a flexbox container, too */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 15px;
   width: 175px;
 }
@@ -357,4 +361,38 @@ footer {
 .product_images a {
   text-decoration: none;
   color: black;
+}
+
+/* Large devices like desktops, 992px and up */
+@media (min-width: 992px) { 
+  .product_images img {
+    width: 175px;
+    height: auto;
+  }
+}
+
+/* Medium devices like tablets, 768px and up */
+@media (min-width: 768px) and (max-width: 991px) {
+  .product_images img {
+    width: 100px;
+    height: auto;
+  }
+
+  .product_images section {
+    padding: 15px;
+    width: 150px;
+  }
+}
+
+/* Small devices like phones, less than 768px */
+@media (max-width: 767px) {
+  .product_images img {
+    width: 60px;
+    height: auto;
+  }
+  
+  .product_images section {
+    padding: 15px;
+    width: 125px;
+  }
 }
