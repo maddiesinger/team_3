@@ -18,6 +18,13 @@
 * {
   box-sizing: border-box;
 }
+
+#breadcrumb a {
+  color: black; /* Set the link color */
+  font-weight: bold; /* Set the link font weight */
+}
+
+
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -362,6 +369,16 @@ footer {
   text-decoration: none;
   color: black;
 }
+
+.breadcrumbs {
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+
 
 /* Large devices like desktops, 992px and up */
 @media (min-width: 992px) { 
