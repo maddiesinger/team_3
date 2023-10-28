@@ -1,7 +1,9 @@
+import ShoppingCart from "./components/ShoppingCart.svelte"; 
 import { getLocalStorage } from "./utils.mjs";
 import { showNotification } from "./productDetails.mjs";
 import { renderHeaderFooter } from "./utils.mjs";
 import { cartCount } from "./stores.mjs";
+
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || []; // Default to an empty array if null
@@ -99,5 +101,11 @@ function deleteItemFromCart(itemId) {
   cartCount.set(totalQuantity);
 }
 
+const checkoutBtn = document.querySelector(".checkout_btn")
+checkoutBtn.addEventListener("click", console.log("Clicked"))
+
+new ShoppingCart({
+  target: document.querySelector(".products"),
+});
 renderCartContents();
 renderHeaderFooter();

@@ -1,7 +1,7 @@
 <script>
-    import { getData } from "../productData.mjs";
+    import { getProductsByCategory } from "../externalServices.mjs";
     export let category;
-    let promise = getData(category);
+    let promise = getProductsByCategory(category);
     
     // IDs of tents to filter out
     const excludeTentIds = ["989CG", "880RT"];
