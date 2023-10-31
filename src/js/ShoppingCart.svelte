@@ -23,4 +23,4 @@
     {/each}
   </ul>
 
-  <button class="checkout_Btn">Check Out</button>
+  
