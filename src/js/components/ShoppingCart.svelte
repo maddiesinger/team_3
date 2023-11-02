@@ -5,7 +5,7 @@
 
     function calculateListTotal(list) {
       const amounts = list.map((item) => item.FinalPrice);
-      return amounts.reduce((sum, item) => sum + item, 0);
+      return amounts.reduce((sum, item) => sum + item, 0).toFixed(2);
     }
   </script>
   

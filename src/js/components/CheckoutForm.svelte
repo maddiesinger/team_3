@@ -16,12 +16,13 @@ let orderTotal = 0;
 const init = function () {
   list = getLocalStorage(key);
   calculateItemSummary(list);
+  calculateOrdertotal()
 };
 // calculate order subtotal from the cart items
 const calculateItemSummary = function() {
   // calculate the total of all the items in the cart
   const amounts = list.map((item) => item.FinalPrice);
-  itemTotal = amounts.reduce((sum, item) => sum + item);
+  itemTotal = amounts.reduce((sum, item) => sum + item).toFixed(2);;
 };
   
 // calculate the shipping, tax, and orderTotal
