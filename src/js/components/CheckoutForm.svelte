@@ -71,7 +71,7 @@ const packageItems = function (items) {
 init(); 
 </script>
 
-<form class=shipping_form>
+<form class=shipping_form on:submit|preventDefault={handleSubmit}>
 <fieldset class="shipping">
     <legend>Shipping</legend>
     <label for="fname">First Name</label><br>
@@ -92,8 +92,8 @@ init();
       <legend>Payment</legend>
       <label for="cardNumber">Card Number</label><br>
       <input type="number" id="paymment_cardNumber" name="cardNumber" placeholder="No spaces or dashes!" maxlength="16" minlength="16"><br>
-      <label for="exp ">Expiration</label><br>
-      <input id="paym_exp" name="exp" required placeholder="mm/yy"><br>
+      <label for="expiration">Expiration</label><br>
+      <input id="paym_exp" name="expiration" required placeholder="mm/yy"><br>
       <label for="securityCode">Security Code</label><br>
       <input type="number" id="paymment_securityCode" name="securityCode" required maxlength="3" minlength="3">
     </fieldset>
