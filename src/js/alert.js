@@ -1,4 +1,4 @@
-import { convertToJson } from "./productData.mjs";
+import { convertToJson } from "./externalServices.mjs";
 
 async function modifyAlerts() {
   const response = await fetch("../json/alerts.json");
