@@ -1,5 +1,6 @@
 import MainFooter from "./components/MainFooter.svelte";
 import MainHeader from "./components/MainHeader.svelte";
+import AlertMessage from "./components/AlertMessage.svelte";
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -19,12 +20,8 @@ export function setLocalStorage(key, data) {
 export function getCartCount(){
   var storedData = getLocalStorage("so-cart");
   if (storedData) {
-    if (Array.isArray(storedData)) {
       const totalQuantity = storedData.reduce((total, product) => total + product.quantity, 0);
       return totalQuantity;
-    } else {
-      return 1;
-    }
   }
   else {
     return;
@@ -80,4 +77,26 @@ export function formDataToJSON(formElement) {
   });
 
   return convertedJSON;
+}
+
+
+export function alertMessage(message, scroll = true, duration = 3000) {
+  const alert = new AlertMessage({
+    target: document.querySelector("body"),
+    anchor: document.querySelector("main"),
+    props: {
+      message,
+    },
+  });
+
+  if (scroll) window.scrollTo(0, 0);
+
+  setTimeout(function () {
+    alert.$destroy();
+  }, duration);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }

@@ -204,6 +204,9 @@ button {
 .products {
   padding: 0.5em;
 }
+.cart.product-list{ 
+  flex-direction: column;
+}
 .product-list {
   display: flex;
   flex-flow: row wrap;
@@ -387,10 +390,31 @@ footer {
   padding: 0;
   margin: 0;
 }
+.product-page {
+  display: flex;
+}
+.recommended {
+  list-style: none;
+  padding-top: 18px;
+}
+
+.recommended a {
+  text-decoration: none;
+  color: black;
+}
 
 
-
-
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+.alert > p {
+  margin: 0;
+}
 
 
 /* Large devices like desktops, 992px and up */

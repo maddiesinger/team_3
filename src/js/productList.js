@@ -21,6 +21,6 @@ getData(category)
     // Assuming `data` is an array
     products = data;
     const count = products.length;
-    breadcrumb.innerHTML = `<a href="/product-list/index.html?category=${category}">${category}</a>/<a>(${count} items)</a>`
+    breadcrumb.innerHTML += `<a href="/product-list/index.html?category=${category}">${category}</a>/<a>(${count} items)</a>`
   });
 

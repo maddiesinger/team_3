@@ -1,5 +1,5 @@
-import { getLocalStorage, setLocalStorage} from "./utils.mjs";
-import { findProductById } from "./externalServices.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage} from "./utils.mjs";
+import { findProductById, findRandomProduct} from "./externalServices.mjs";
 import { cartCount } from "./stores.mjs";
 
 
@@ -12,7 +12,14 @@ export default async function productDetails(productId, selector) {
   // once we have the product details we can render out the HTML
   checkProduct(product, selector)
   const breadcrumb = document.querySelector(".breadcrumb")
-  breadcrumb.innerHTML = `<a href="/product-list/index.html?category=${product.Category}">${product.Category}</a>`
+  breadcrumb.innerHTML += `<a href="/product-list/index.html?category=${product.Category}">${product.Category}</a>`
+
+  const randomProduct1 =  await findRandomProduct()
+  const randomProduct2 =  await findRandomProduct()
+  const recommended = document.querySelector(".recommended");
+  recommended.innerHTML += recommendedTemplate(randomProduct1);
+  recommended.innerHTML += recommendedTemplate(randomProduct2);
+ 
   // once the HTML is rendered we can add a listener to Add to Cart button
   
 }
@@ -46,7 +53,7 @@ function productDetailsTemplate(product) {
   <h2 class="divider">${product.NameWithoutBrand}</h2>
   <img
     class="divider"
-    src="${product.Images.PrimaryMedium}"
+    src="${product.Images.PrimaryLarge}"
     alt="${product.Name}"
   />
   <p class="product-card__price">$${product.SuggestedRetailPrice}</p>
@@ -59,7 +66,18 @@ function productDetailsTemplate(product) {
     <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
   </div>`;
 }
-
+function recommendedTemplate(recommended_product) {
+  return `
+  <li class="product-card">
+  <a href="/product_pages/index.html?product=${recommended_product.Id}">
+      <img src=${recommended_product.Images.PrimaryLarge} alt="Image of ${recommended_product.Name}" />
+      <h3 class="card__brand">${recommended_product.Brand.Name}</h3>
+      <h2 class="card__name">${recommended_product.NameWithoutBrand}</h2>
+      <p class="product-card__price">$${recommended_product.SuggestedRetailPrice}</p>
+      <p class="product-card__final-price"><b>$${recommended_product.FinalPrice}</b></p>
+  </a>
+</li>`;
+}
 
 export function showNotification(message) {
   const notification = document.createElement("div");
