@@ -387,7 +387,18 @@ footer {
   padding: 0;
   margin: 0;
 }
+.product-page {
+  display: flex;
+}
+.recommended {
+  list-style: none;
+  padding-top: 18px;
+}
 
+.recommended a {
+  text-decoration: none;
+  color: black;
+}
 
 
 .alert {
