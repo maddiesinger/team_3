@@ -20,12 +20,8 @@ export function setLocalStorage(key, data) {
 export function getCartCount(){
   var storedData = getLocalStorage("so-cart");
   if (storedData) {
-    if (Array.isArray(storedData)) {
       const totalQuantity = storedData.reduce((total, product) => total + product.quantity, 0);
       return totalQuantity;
-    } else {
-      return 1;
-    }
   }
   else {
     return;

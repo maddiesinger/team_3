@@ -204,6 +204,9 @@ button {
 .products {
   padding: 0.5em;
 }
+.cart.product-list{ 
+  flex-direction: column;
+}
 .product-list {
   display: flex;
   flex-flow: row wrap;
