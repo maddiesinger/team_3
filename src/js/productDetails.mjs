@@ -174,7 +174,7 @@ function addProductToCart(productItem) {
     productItem.quantity = 1;  // Ensure the product has a quantity property set.
     cartItems.push(productItem);
   }
-  showNotification("Item has been added to the cart!");  // Save the updated cart items back to local storage.
+  showNotification(`${productItem.Name} has been added to the cart!`);  // Save the updated cart items back to local storage.
   setLocalStorage("so-cart", cartItems);
   // Calculate the total quantity of all items in the cart, same as in cart.js
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -182,6 +182,34 @@ function addProductToCart(productItem) {
   // Set the cart count to the total quantity of all items.
   cartCount.set(totalQuantity);
 }
+
+export async function deleteFromCart(productItemId) {
+  const cartItems = getLocalStorage("so-cart") || [];
+
+  // Find the item in the cart
+  const item = cartItems.find(i => i.Id === productItemId);
+  if (item) {
+    item.quantity -= 1;
+
+    // If the item's quantity reaches zero, remove it from the cart.
+    if (item.quantity === 0) {
+      const index = cartItems.indexOf(item);
+      cartItems.splice(index, 1);
+    }
+  }
+
+  setLocalStorage("so-cart", cartItems);
+  const totalQuantity = cartItems.reduce((sum, i) => sum + i.quantity, 0);
+  cartCount.set(totalQuantity);
+
+  if (item && item.quantity > 0) {
+    showNotification(`Item has been deleted from the cart.`);
+  } else {
+    showNotification(`Item has been deleted from the cart.`);
+  }
+}
+
+
   
 async function addToCartHandler(e) {
   const productItem = await findProductById(e.target.dataset.id);
