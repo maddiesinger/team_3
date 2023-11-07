@@ -4,6 +4,10 @@ import { cartCount } from "./stores.mjs";
 
 
 let product = {};
+let carousel;
+let slides;
+let currentIndex = 0;
+
 
 export default async function productDetails(productId, selector) {
   // get the details for the current product. findProductById will return a promise! use await or .then() to process it
@@ -19,8 +23,6 @@ export default async function productDetails(productId, selector) {
   const recommended = document.querySelector(".recommended");
   recommended.innerHTML += recommendedTemplate(randomProduct1);
   recommended.innerHTML += recommendedTemplate(randomProduct2);
- 
-  // once the HTML is rendered we can add a listener to Add to Cart button
   
 }
 
@@ -31,6 +33,27 @@ function checkProduct(product, selector){
     const el = document.querySelector(selector);
     el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
     document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+
+    if (product.Images.ExtraImages && product.Images.ExtraImages.length > 0) {
+    carousel = document.querySelector(".carousel");
+    slides = document.querySelectorAll(".carousel-slide");
+    const prevButton = document.getElementById("prevBtn");
+    const nextButton = document.getElementById("nextBtn");
+    
+
+    prevButton.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateCarousel();
+    });
+
+    nextButton.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateCarousel();
+    });
+  
+    updateCarousel();
+
+  }
   
   }
   catch(error){
@@ -46,25 +69,57 @@ function checkProduct(product, selector){
   }
 }
 
+
+function updateCarousel() {
+  const slideWidth = slides[currentIndex].getBoundingClientRect().width;
+  carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+}
+
 // eslint-disable-next-line no-shadow
 function productDetailsTemplate(product) {
+  let imageHTML; // Initialize an empty string to store image HTML
+
+  if (product.Images.ExtraImages && product.Images.ExtraImages.length > 0) {
+    // If there are ExtraImages, create a carousel
+    imageHTML = `
+    <div class="carousel-container">
+    <div class="carousel">
+    <div class="carousel-slide"><img class="active" src="${product.Images.PrimaryLarge}" alt="${product.Name}" /></div>
+    ${product.Images.ExtraImages.map((extraImage) => `
+      <div class="carousel-slide"><img class="carousel-image" src="${extraImage.Src}" alt="${extraImage.Title}" /></div>
+    `).join("")}
+    </div>
+
+    <button id="prevBtn" class="carousel-button">&#8249;</button>
+    <button id="nextBtn" class="carousel-button">&#8250</button>
+    </div>
+    `;
+  } else {
+    // If there are no ExtraImages, use the primary image
+    imageHTML = `
+      <img
+        class="single-image"
+        src="${product.Images.PrimaryLarge}"
+        alt="${product.Name}"
+      />
+    `;
+  }
+
   return `
-  <h3>${product.Brand.Name}</h3>
-  <h2 class="divider">${product.NameWithoutBrand}</h2>
-  <img
-    class="divider"
-    src="${product.Images.PrimaryLarge}"
-    alt="${product.Name}"
-  />
-  <p class="product-card__price">$${product.SuggestedRetailPrice}</p>
-  <p class="product-card__final-price"><b>$${product.FinalPrice}</b></p>
-  <p class="product__color">${product.Colors[0].ColorName}</p>
-  <p class="product__description">
-  ${product.DescriptionHtmlSimple}
-  </p>
-  <div class="product-detail__add">
-    <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
-  </div>`;
+    <h3>${product.Brand.Name}</h3>
+    <h2 class="divider">${product.NameWithoutBrand}</h2>
+    ${imageHTML}
+    <p class="product-card__price">$${product.SuggestedRetailPrice}</p>
+    <p class="product-card__final-price"><b>$${product.FinalPrice}</b></p>
+    <p class="product__color">${product.Colors[0].ColorName}</p>
+    <p class="product__description">
+      ${product.DescriptionHtmlSimple}
+    </p>
+    <div class="product-detail__add">
+      <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+    </div>
+  `;
 }
 function recommendedTemplate(recommended_product) {
   return `
@@ -132,14 +187,14 @@ async function addToCartHandler(e) {
   const productItem = await findProductById(e.target.dataset.id);
   addProductToCart(productItem);
   const backpack = document.getElementById("backpackIcon");
-  // Add the 'animated' class to the backpack, it seems thats toggle led to the animation not working every other click.
+  // Add the "animated" class to the backpack, it seems thats toggle led to the animation not working every other click.
   //it still is a little funky when you cikc on it multiple times but this should work for now.
   backpack.classList.add("animated");
-  // Remove the 'animated' class and add 'return-to-normal' after a time delay
+  // Remove the "animated" class and add "return-to-normal" after a time delay
   setTimeout(() => {
     backpack.classList.remove("animated");
     backpack.classList.add("return-to-normal");
-    //Remove 'return-to-normal' class after its animation is complete
+    //Remove "return-to-normal" class after its animation is complete
     setTimeout(() => {
       backpack.classList.remove("return-to-normal");
     }, 500);  // left the original timeout time
