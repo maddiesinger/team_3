@@ -448,8 +448,51 @@ footer {
   .product_images section {
     padding: 15px;
     width: 125px;
+  }}
+  
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
   }
-}
+
+  .carousel {
+    display: flex;
+    transition: transform 0.5s;
+  }
+  
+  .carousel-slide {
+    flex: 0 0 100%;
+  }
+  
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+  }
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  #prevBtn {
+    left: 0;
+  }
+  
+  #nextBtn {
+    right: 0;
+  }
+  
 
 /* Modal Menu Lookup */
 .productmodal {
@@ -487,4 +530,4 @@ footer {
   text-decoration: none;
   cursor: pointer;
 }
-/* End Modal Menu Lookup */
+
