@@ -1,5 +1,12 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
+// Function to fetch products based on search query
+export async function getProductsBySearchQuery(query) {
+  const response = await fetch(`${baseURL}products/search?query=${query}`);
+  const data = await convertToJson(response);
+  return data.Result;
+}
+
 export async function convertToJson(jsonResponse) {
   if (jsonResponse.ok) {
     return jsonResponse.json();
@@ -40,4 +47,6 @@ export async function checkout(payload) {
     body: JSON.stringify(payload),
   };
   return await fetch(baseURL + "checkout/", options).then(convertToJson);
+
+  
 }

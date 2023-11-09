@@ -1,5 +1,10 @@
 <script>
-  import { getProductsByCategory } from "../externalServices.mjs";
+
+  import { getProductsByCategory, getProductsBySearchQuery } from "../externalServices.mjs";
+
+      
+  let searchQuery = ''; // Add a variable to store the search query
+      
   export let category;
   let promise = getProductsByCategory(category);
   const excludeTentIds = ["989CG", "880RT"];
@@ -20,6 +25,10 @@
   const stopPropagation = (event) => {
     event.stopPropagation();
   };
+
+  async function searchProducts() {
+        promise = getProductsBySearchQuery(searchQuery); // Call a function to retrieve products based on the search query
+  }
 </script>
 
 <h2>Top Products: {category}</h2>
@@ -45,6 +54,7 @@
       </li>
     {/each}
   </ul>
+
   {#if selectedProduct}
     <div class="productmodal" on:click={closeModal}>
       <div class="productmodal-content" on:click={stopPropagation}>
@@ -55,7 +65,6 @@
           src={selectedProduct.Images.PrimaryLarge}
           alt="Image of {selectedProduct.Name}"
         />
-        <!-- Add other product details as needed -->
       </div>
     </div>
   {/if}
