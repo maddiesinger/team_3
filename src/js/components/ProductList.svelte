@@ -4,6 +4,7 @@
   let promise = getProductsByCategory(category);
   const excludeTentIds = ["989CG", "880RT"];
   let selectedProduct = null; // This variable will hold the data for the product that is being viewed in the modal
+  import { onMount } from 'svelte';
 
   const filterTents = (products) => {
     return products.filter((product) => !excludeTentIds.includes(product.Id));
@@ -20,6 +21,11 @@
   const stopPropagation = (event) => {
     event.stopPropagation();
   };
+
+  onMount(() => {
+    document.getElementById("addToWishlist").addEventListener("click", addToWishlistHandler);
+  });
+
 </script>
 
 <h2>Top Products: {category}</h2>

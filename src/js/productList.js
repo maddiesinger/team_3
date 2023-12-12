@@ -23,4 +23,3 @@ getData(category)
     const count = products.length;
     breadcrumb.innerHTML += `<a href="/product-list/index.html?category=${category}">${category}</a>/<a>(${count} items)</a>`
   });
-

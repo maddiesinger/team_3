@@ -1,6 +1,8 @@
-import { getLocalStorage, setLocalStorage, alertMessage} from "./utils.mjs";
-import { findProductById, findRandomProduct} from "./externalServices.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
+import { findRandomProduct } from "./externalServices.mjs";
 import { cartCount } from "./stores.mjs";
+import { findProductById } from "./productData.mjs";
+export { findProductById };
 
 
 let product = {};
@@ -33,6 +35,7 @@ function checkProduct(product, selector){
     const el = document.querySelector(selector);
     el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
     document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+    document.getElementById("addToWishlist").addEventListener("click", addToWishlistHandler);
 
     if (product.Images.ExtraImages && product.Images.ExtraImages.length > 0) {
     carousel = document.querySelector(".carousel");
@@ -118,6 +121,7 @@ function productDetailsTemplate(product) {
     </p>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+      <button id="addToWishlist" data-id="${product.Id}">Add to Wishlist</button>
     </div>
   `;
 }
@@ -153,7 +157,7 @@ export function showNotification(message) {
 }
 
 
-function addProductToCart(productItem) {
+export async function addProductToCart(productItem) {
   // Get current cart items or default to an empty array if null.
   const cartItems = getLocalStorage("so-cart") || [];
 
@@ -182,6 +186,7 @@ function addProductToCart(productItem) {
   // Set the cart count to the total quantity of all items.
   cartCount.set(totalQuantity);
 }
+
 
 export async function deleteFromCart(productItemId) {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -228,4 +233,21 @@ async function addToCartHandler(e) {
     }, 500);  // left the original timeout time
     
   }, 500);
+}
+
+function addToWishlist(productItem) {
+  const wishlistItems = getLocalStorage("so-wishlist") || [];
+
+  if (!wishlistItems.some(item => item.Id === productItem.Id)) {
+    wishlistItems.push(productItem);
+    showNotification(`${productItem.Name} has been added to your wishlist!`);
+    setLocalStorage("so-wishlist", wishlistItems);
+  } else {
+    showNotification(`${productItem.Name} is already in your wishlist.`);
+  }
+}
+
+async function addToWishlistHandler(e) {
+  const productItem = await findProductById(e.target.dataset.id);
+  addToWishlist(productItem);
 }

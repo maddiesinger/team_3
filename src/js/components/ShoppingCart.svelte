@@ -57,6 +57,8 @@ return totalAmount.toFixed(2);
 <h2>Cart Currently Empty</h2>
 {/if}
 
+<a href="/wishlist/">View Wishlist</a>
+
 <style>
 #checkoutBtn {
   padding: 0.5em 2em;
